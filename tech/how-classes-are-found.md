@@ -7,8 +7,6 @@ title: "Java 如何查找 Classes"
 
 JDK 提供了很多构建 java 程序的工具，比如 java、javac、javadoc、jdb 等。因为 eclipse 、IntelliJ IDEA 等 IDE 给我们提供了极大的便利，我们很少直接接触到这些基本的工具，但在实际的工作中，我们总会碰到与之相关的东西，比如 java 程序的部署和运行。了解这些知识可以让我们更加从容面对复杂的实际情形，Oracle 官方文档对这些话题提供了不错的参考，本系列文章是对[此处文档](http://docs.oracle.com/javase/8/docs/technotes/tools/windows/toc.html)的梳理和总结，后续若有机会的话，会对其中涉及的话题进一步的深入完善。
 
-<!--more-->
-
 `java` 命令被用于启动 java 程序，当被调用时，它会从用户的输入和环境中收集信息并引导 java 虚拟机（JVM），由 JVM 处理接下来的工作。
 
 # Java 运行时如何查找 Class
@@ -46,7 +44,7 @@ user class path 是一系列包含有 Class 文件的目录、jar文件、zip文
 
 如果 `com.mypackage.MyClass` 位于一个名为 `myclasses.jar` 的归档文件中，则这个归档文件必须被包含在 user class path 中，并且 class 文件在归档文件中必须存储为 `com/mypackage/MyClass.class`。
 
-user class path 可以包含多个路径，在 windows 上，多个路径由分号（;）分割，在 linux 上则是冒号（：）。java 启动器将 user class path 中的字符串存储在 `java.class.path` 系统属性中，它的值按一下顺序决定：
+user class path 可以包含多个路径，在 windows 上，多个路径由分号（;）分割，在 linux 上则是冒号（：）。java 启动器将 user class path 中的字符串存储在 `java.class.path` 系统属性中，它的值按以下顺序决定：
 
 1. 默认值，当前文件夹下的所有 class 文件。
 2. CLASSPATH 环境变量中指定的值，覆盖上一设置。
@@ -55,7 +53,7 @@ user class path 可以包含多个路径，在 windows 上，多个路径由分�
 
 # Java 运行时如何查找 JAR­-class-­path Classes
 
-当 class 文件只来源于归档文件时，manifest 中可以定义一个 JAR class path, class 文件按一下顺序被访问：
+当 class 文件只来源于归档文件时，manifest 中可以定义一个 JAR class path, class 文件按以下顺序被访问：
 
 1. class 文件被视为它所属的 jar 文件的一部分，jar 文件一般按 manifest 中的条目先后顺序搜索。
 2. 已经被搜索过的 jar 不会被再次搜索，这样可以提升性能并且避免循环搜索。
@@ -63,7 +61,7 @@ user class path 可以包含多个路径，在 windows 上，多个路径由分�
 
 # javac 和 javadoc 命令如何查找 Classes
 
-`javac` 和 `javadoc` 会在一下两方面使用到 class 文件：
+`javac` 和 `javadoc` 会在以下两方面使用到 class 文件：
 
 1. 用于支持自身的运行。
 2. 用于解析源代码中的引用。（被引用的类可以是 class 文件的形式或者源代码文件的形式）
